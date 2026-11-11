@@ -1,6 +1,4 @@
-import type { Catalog } from '../../types';
-import { referenceLabels } from '../../lib/fieldPresentation';
-
+import type { Catalog } from "../../types";
 export function EvidenceReferences({
   refs,
   catalog,
@@ -8,8 +6,26 @@ export function EvidenceReferences({
   refs: string[];
   catalog: Catalog;
 }) {
-  const labels = referenceLabels(refs, catalog);
-  return labels.length ? (
-    <small className="muted">ข้อมูลที่ใช้พิจารณา: {labels.join(' · ')}</small>
+  return refs.length ? (
+    <small className="muted ted-refs">
+      หลักฐาน:{" "}
+      {refs.map((ref, i) => (
+        <span key={ref}>
+          {i > 0 ? " · " : ""}
+          <a
+            href={`#source-${ref}`}
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .getElementById(`source-${ref}`)
+                ?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }}
+          >
+            {catalog.fields.find((f) => f.id === ref)?.label ??
+              "ข้อความอ้างอิง"}
+          </a>
+        </span>
+      ))}
+    </small>
   ) : null;
 }

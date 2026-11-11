@@ -1,0 +1,186 @@
+:root {
+  --accent: #137552;
+  --border: #dfe7df;
+  color: #243e32;
+  background: #f6f8f4;
+}
+button,
+a.button {
+  border-radius: 8px;
+}
+button:not(.button) {
+  border: 1px solid var(--border);
+  background: white;
+  padding: 0.5rem 0.85rem;
+}
+a:hover {
+  color: #137552;
+}
+.ted-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px max(24px, calc((100vw - 1120px) / 2));
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.ted-header .brand {
+  font-size: 20px;
+  color: #11633e;
+  font-weight: 700;
+}
+.ted-header nav {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+.ted-shell {
+  max-width: 1120px;
+  margin: auto;
+  padding: 32px 24px;
+}
+.ted-login {
+  max-width: 520px;
+  padding: 60px 20px;
+  margin: auto;
+}
+.ted-card {
+  padding: 26px;
+  margin-bottom: 22px;
+}
+.ted-card label {
+  display: block;
+  margin: 16px 0;
+  line-height: 1.7;
+}
+.ted-card input:not([type="checkbox"]),
+.ted-card textarea,
+.ted-card select {
+  display: block;
+  width: 100%;
+  padding: 11px 12px;
+  margin-top: 6px;
+  border: 1px solid #cdd7cd;
+  border-radius: 7px;
+  background: white;
+  color: #243e32;
+}
+.ted-card textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+.ted-card .ted-checkbox {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.ted-checkbox input {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin-top: 4px;
+}
+.ted-drop {
+  padding: 32px 20px;
+  border: 2px dashed #cdd7cd;
+  border-radius: 10px;
+  text-align: center;
+  background: #f8faf7;
+}
+.ted-drop.ready {
+  border-color: #137552;
+  background: #edf8f1;
+}
+.ted-case-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ted-case-row p {
+  margin-bottom: 0;
+}
+.ted-source {
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 20px;
+}
+.ted-source p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 8px 0;
+}
+.ted-refs {
+  display: block;
+  margin: 8px 0;
+}
+.ted-link,
+.ted-refs a {
+  text-decoration: underline;
+  color: #137552;
+}
+.ted-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+.ted-fields > div {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+.ted-fields p {
+  white-space: pre-wrap;
+}
+.ted-card h2 {
+  font-size: 20px;
+}
+.ted-card h3 {
+  font-size: 16px;
+}
+.ted-card h4 {
+  font-size: 14px;
+}
+.notice.error {
+  background: #fff0ed;
+  color: #8c3428;
+  border: 1px solid #efc5bc;
+}
+.button.primary {
+  background: #137552;
+  border-color: #137552;
+}
+.ted-card details summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+.ted-card small {
+  line-height: 1.7;
+}
+.ted-card .notice {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 720px) {
+  .ted-header {
+    gap: 12px;
+    padding: 16px;
+  }
+  .ted-header nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .ted-shell {
+    padding: 24px 14px;
+  }
+  .ted-card {
+    padding: 20px;
+  }
+  .ted-fields {
+    grid-template-columns: 1fr;
+  }
+  .ted-case-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

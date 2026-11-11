@@ -1,51 +1,82 @@
-import { useEffect, useState } from 'react';
-import type { Catalog } from './types';
-export default function App() {
-  const [catalog, setCatalog] = useState<Catalog | null>(null);
-  const [error, setError] = useState('');
+import { useEffect, useState } from "react";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import type { Catalog } from "./types";
+import { api, errorMessage } from "./lib/api";
+import { LoginPage } from "./pages/LoginPage";
+import { CaseListPage } from "./pages/CaseListPage";
+import { CaseDetailPage } from "./pages/CaseDetailPage";
+import { UploadPage } from "./pages/UploadPage";
+import { Feedback } from "./components/Feedback";
+function Workspace() {
+  const auth = useAuth(),
+    [hash, setHash] = useState(window.location.hash),
+    [catalog, setCatalog] = useState<Catalog | null>(null),
+    [error, setError] = useState("");
   useEffect(() => {
-    const controller = new AbortController();
-    const base = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
-    fetch(`${base}/api/catalog`, { signal: controller.signal })
-      .then(async (response) => {
-        if (!response.ok) throw new Error('ยังเชื่อมต่อบริการไม่ได้');
-        setCatalog((await response.json()) as Catalog);
-      })
-      .catch(() => {
-        if (!controller.signal.aborted)
-          setError('ยังเชื่อมต่อบริการไม่ได้ กรุณาเปิด backend');
-      });
-    return () => controller.abort();
+    const change = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", change);
+    return () => window.removeEventListener("hashchange", change);
   }, []);
+  useEffect(() => {
+    let live = true;
+    if (auth.user)
+      api<Catalog>("/catalog")
+        .then((v) => {
+          if (live) setCatalog(v);
+        })
+        .catch((e) => {
+          if (live) setError(errorMessage(e));
+        });
+    return () => {
+      live = false;
+    };
+  }, [auth.user]);
+  if (auth.loading)
+    return <main className="ted-shell">กำลังตรวจการเข้าสู่ระบบ…</main>;
+  if (!auth.user) return <LoginPage />;
+  const id = hash.match(/^#\/cases\/([a-f\d]{24})$/i)?.[1];
   return (
-    <main style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 1.5rem' }}>
-      <div className="page-heading">
-        <div>
-          <div className="section-kicker">TED INTAKE</div>
-          <h1>พื้นที่วิเคราะห์โครงการ TED</h1>
-          <p>TED IDEA / TED POC</p>
-        </div>
-      </div>
-      <section className="card" style={{ padding: '1.5rem' }}>
-        <h2>เตรียมระบบแล้ว</h2>
-        <p>พื้นที่รับเอกสารและวิเคราะห์อัตโนมัติอยู่ระหว่างพัฒนา</p>
-        {error ? (
-          <p role="alert">{error}</p>
-        ) : !catalog ? (
-          <p>กำลังเชื่อมต่อบริการ…</p>
+    <>
+      <header className="ted-header">
+        <a href="#/" className="brand">
+          TED INTAKE
+        </a>
+        <nav>
+          <a href="#/">โครงการ</a>
+          <a href="#/new">รับเอกสารใหม่</a>
+        </nav>
+        <span>{auth.user.name}</span>
+        <button
+          onClick={() =>
+            void auth.logout().catch((e) => setError(errorMessage(e)))
+          }
+        >
+          ออกจากระบบ
+        </button>
+      </header>
+      <main className="ted-shell">
+        <Feedback error={error} />
+        {!catalog ? (
+          <p>
+            {error
+              ? "โหลดการตั้งค่าไม่ได้ กรุณารีเฟรชหลังตรวจ backend"
+              : "กำลังโหลดการตั้งค่า…"}
+          </p>
+        ) : id ? (
+          <CaseDetailPage key={id} id={id} catalog={catalog} />
+        ) : hash === "#/new" ? (
+          <UploadPage catalog={catalog} />
         ) : (
-          <>
-            <p>เชื่อมต่อบริการสำเร็จ</p>
-            <div className="tag-list">
-              {catalog.programs.map((program) => (
-                <span className="badge status-draft" key={program.code}>
-                  {program.label}
-                </span>
-              ))}
-            </div>
-          </>
+          <CaseListPage />
         )}
-      </section>
-    </main>
+      </main>
+    </>
+  );
+}
+export default function App() {
+  return (
+    <AuthProvider>
+      <Workspace />
+    </AuthProvider>
   );
 }

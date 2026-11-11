@@ -1,29 +1,35 @@
-import type { Catalog, TedAssessment } from '../../types';
-import { readableAnalysisText } from '../../lib/fieldPresentation';
-import { EvidenceReferences } from './EvidenceReferences';
-import { tedStageLabels } from '../../lib/tedPresentation';
+import type { Catalog, TedAssessment } from "../../types";
+import { readableAnalysisText } from "../../lib/fieldPresentation";
+import { EvidenceReferences } from "./EvidenceReferences";
+import { tedStageLabels } from "../../lib/tedPresentation";
 
 export function TedAssessmentPanel({
   assessment,
   catalog,
+  localCheck = false,
 }: {
   assessment: TedAssessment;
   catalog: Catalog;
+  localCheck?: boolean;
 }) {
   const label =
-    assessment.classification === 'INSUFFICIENT_DATA'
-      ? 'ข้อมูลยังไม่พอแยก TED IDEA / TED POC'
+    assessment.classification === "INSUFFICIENT_DATA"
+      ? "ข้อมูลยังไม่พอแยก TED IDEA / TED POC"
       : `เบื้องต้นเหมาะกับ ${catalog.programs.find((p) => p.code === assessment.classification)?.label ?? assessment.classification}`;
   return (
     <section className="ted-assessment" aria-label="การจำแนก TED เบื้องต้น">
-      <h3>การจำแนก TED เบื้องต้น · ไม่มีการให้คะแนน</h3>
+      <h3>
+        {localCheck
+          ? "ยังไม่มีข้อมูลเพียงพอสำหรับการจำแนก TED"
+          : "การจำแนก TED เบื้องต้น · ไม่มีการให้คะแนน"}
+      </h3>
       <p className="notice info">
         <strong>{label}</strong>
       </p>
       {assessment.developmentStage && (
         <div>
           <h4>
-            ระยะพัฒนาจากข้อมูลที่บันทึก:{' '}
+            ระยะพัฒนาจากข้อมูลที่บันทึก:{" "}
             {tedStageLabels[assessment.developmentStage.stage]}
           </h4>
           <p>
@@ -46,10 +52,10 @@ export function TedAssessmentPanel({
           aria-label="เงื่อนไขเงินสมทบแยกจากการจำแนก"
         >
           <h4>
-            เงินสมทบ POC อย่างน้อย 10% ·{' '}
-            {assessment.fundingReadiness.status === 'NEEDS_VERIFICATION'
-              ? 'รอตรวจยืนยัน'
-              : 'ยังไม่ประเมินในผลนี้'}
+            เงินสมทบ POC อย่างน้อย 10% ·{" "}
+            {assessment.fundingReadiness.status === "NEEDS_VERIFICATION"
+              ? "รอตรวจยืนยัน"
+              : "ยังไม่ประเมินในผลนี้"}
           </h4>
           <p>
             {readableAnalysisText(assessment.fundingReadiness.reason, catalog)}
@@ -71,7 +77,9 @@ export function TedAssessmentPanel({
         </div>
       )}
       <p className="muted">
-        เจ้าหน้าที่ต้องตรวจข้อมูลและยืนยันผลอีกครั้ง
+        {localCheck
+          ? "เติมข้อมูลโครงการแล้ววิเคราะห์ใหม่ก่อนยืนยันผล"
+          : "เจ้าหน้าที่ต้องตรวจข้อมูลและยืนยันผลอีกครั้ง"}
         ผลนี้ไม่ใช่การรับรองสิทธิ์หรืออนุมัติทุน
       </p>
     </section>

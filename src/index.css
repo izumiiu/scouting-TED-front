@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap");
 :root {
-  font-family: Sarabun, 'Segoe UI', sans-serif;
+  font-family: Sarabun, "Segoe UI", sans-serif;
   color: #304032;
   background: #faf9f5;
   font-size: 15px;
@@ -46,7 +46,7 @@ h3,
 h4,
 .brand,
 .button {
-  font-family: Prompt, 'Segoe UI', sans-serif;
+  font-family: Prompt, "Segoe UI", sans-serif;
 }
 h1 {
   font-size: 27px;
@@ -738,7 +738,7 @@ textarea {
   resize: vertical;
   width: 100%;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   accent-color: var(--accent);
   width: 15px;
   height: 15px;
@@ -796,7 +796,7 @@ select {
   align-items: center;
   gap: 8px;
 }
-.case-tabs > button[aria-selected='true'] {
+.case-tabs > button[aria-selected="true"] {
   border-color: var(--accent);
   color: #c15a30;
   font-weight: 600;
@@ -1499,21 +1499,70 @@ footer {
   }
 }
 
-.condition-follow-up { margin-top: 10px; font-size: 13px; }
-.condition-follow-up strong { font-weight: 600; }
-.condition-follow-up ul { margin: 6px 0 0; padding-left: 20px; }
-.condition-follow-up li { margin-bottom: 5px; overflow-wrap: anywhere; }
-.condition small { overflow-wrap: anywhere; }
+.condition-follow-up {
+  margin-top: 10px;
+  font-size: 13px;
+}
+.condition-follow-up strong {
+  font-weight: 600;
+}
+.condition-follow-up ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+.condition-follow-up li {
+  margin-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+.condition small {
+  overflow-wrap: anywhere;
+}
 
-.ted-assessment { padding: 1.5rem; border-bottom: 1px solid var(--border, #e6e7de); }
-.ted-assessment p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ted-assessment {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border, #e6e7de);
+}
+.ted-assessment p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 
 .follow-up-panel .follow-up-intro,
-.follow-up-panel .follow-up-description { font-size: .9rem; line-height: 1.6; }
-.follow-up-group { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(160, 124, 65, .25); }
-.follow-up-group h4 { margin: 0 0 .35rem; color: var(--ink, #283b36); }
-.follow-up-group li { margin: 1rem 0; overflow-wrap: anywhere; }
-.follow-up-group li p { margin: 0 0 .4rem; white-space: pre-wrap; }
-.follow-up-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
-.follow-up-tag { display: inline-block; padding: .15rem .5rem; border: 1px solid rgba(160, 124, 65, .3); border-radius: .35rem; font-size: .75rem; color: var(--ink, #283b36); }
-.follow-up-condition { display: block; margin-top: .4rem; }
+.follow-up-panel .follow-up-description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.follow-up-group {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(160, 124, 65, 0.25);
+}
+.follow-up-group h4 {
+  margin: 0 0 0.35rem;
+  color: var(--ink, #283b36);
+}
+.follow-up-group li {
+  margin: 1rem 0;
+  overflow-wrap: anywhere;
+}
+.follow-up-group li p {
+  margin: 0 0 0.4rem;
+  white-space: pre-wrap;
+}
+.follow-up-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.follow-up-tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba(160, 124, 65, 0.3);
+  border-radius: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--ink, #283b36);
+}
+.follow-up-condition {
+  display: block;
+  margin-top: 0.4rem;
+}

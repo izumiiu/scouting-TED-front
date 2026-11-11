@@ -1,17 +1,17 @@
 export type DevelopmentStageCode =
-  | 'CONCEPT'
-  | 'MOCKUP'
-  | 'EARLY_EVIDENCE'
-  | 'WORKING_PROTOTYPE'
-  | 'MARKET_PRODUCT'
-  | 'UNCLEAR';
+  | "CONCEPT"
+  | "MOCKUP"
+  | "EARLY_EVIDENCE"
+  | "WORKING_PROTOTYPE"
+  | "MARKET_PRODUCT"
+  | "UNCLEAR";
 export interface TedDevelopmentStage {
   stage: DevelopmentStageCode;
   reason: string;
   evidenceRefs: string[];
 }
 export interface TedFundingReadiness {
-  status: 'NEEDS_VERIFICATION' | 'NOT_ASSESSED';
+  status: "NEEDS_VERIFICATION" | "NOT_ASSESSED";
   reason: string;
   evidenceRefs: string[];
 }
@@ -20,7 +20,7 @@ export interface TedAssessment {
   developmentStage?: TedDevelopmentStage;
   // Added by the server, never accepted as an AI certification of funding.
   fundingReadiness?: TedFundingReadiness;
-  classification: 'TED_IDEA' | 'TED_POC' | 'INSUFFICIENT_DATA';
+  classification: "TED_IDEA" | "TED_POC" | "INSUFFICIENT_DATA";
   reason: string;
   alternativeReason: string;
   evidenceRefs: string[];
@@ -29,7 +29,7 @@ export interface TedAssessment {
 export interface TedCriteria {
   version: string;
   source: string;
-  mode: 'qualitative';
+  mode: "qualitative";
   stageGuidance?: string[];
   fundingGuidance?: string;
   programs: {
@@ -44,6 +44,8 @@ export interface Field {
   label: string;
 }
 export interface Catalog {
+  aiConfigured: boolean;
+  analysisVersion: string;
   programs: { code: string; label: string }[];
   fields: Field[];
   tedCriteria: TedCriteria;
