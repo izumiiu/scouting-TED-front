@@ -184,3 +184,32 @@ a:hover {
     gap: 5px;
   }
 }
+
+/* Result hierarchy: route, explanation, follow-ups, extracted facts, sources. */
+.ted-result-card .ted-assessment { padding: 0; border-bottom: 0; }
+.ted-result-card .ted-assessment > .notice { border-left: 4px solid #137552; background: #edf6f0; }
+.ted-result-card .ted-assessment > h4 { margin-top: 24px; }
+.ted-followups { border-top: 4px solid #9b702d; }
+.ted-followup-group { margin: 22px 0; }
+.ted-question-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.ted-question-list li { padding: 18px; background: #fffbf3; border: 1px solid #e6d8be; border-radius: 10px; }
+.ted-question-list h4 { color: #4b3c22; margin-bottom: 10px; font-size: 16px; }
+.ted-question-list p { margin-bottom: 8px; overflow-wrap: anywhere; }
+.ted-question-list p:last-child { margin-bottom: 0; }
+.ted-impact { color: #615337; }
+.ted-reading-gaps { margin: 20px 0; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; }
+.ted-reading-gaps li { margin: 8px 0; }
+.ted-data-status { display: inline-block; font-size: 13px; margin-bottom: 10px; padding: 4px 8px; border-radius: 5px; background: #edf6f0; color: #24543d; }
+.ted-field-unreported .ted-data-status { background: #fff4df; color: #695023; }
+.ted-uncertainties { margin: 18px 0; }
+.ted-uncertainties li { margin: 8px 0; }
+.ted-fields > div { padding: 18px; border: 1px solid var(--border); border-radius: 10px; }
+.ted-source:focus { outline: 2px solid #137552; outline-offset: 6px; }
+#extracted-fields { scroll-margin-top: 20px; }
+.ted-card p, .ted-card li { line-height: 1.8; }
+.ted-card summary:focus-visible, .ted-link:focus-visible, .ted-refs a:focus-visible { outline: 2px solid #137552; outline-offset: 4px; }
+@media (max-width: 720px) {
+  .ted-question-list li, .ted-fields > div { padding: 14px; }
+  .ted-card { padding: 18px; }
+  .ted-result-card h2 { font-size: 20px; }
+}

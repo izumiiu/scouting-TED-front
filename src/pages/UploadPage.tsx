@@ -15,8 +15,8 @@ export function UploadPage({ catalog }: { catalog: Catalog }) {
       setError("ระบุชื่อ ที่มาของสิทธิ์ และยืนยันการใช้เอกสารก่อน");
       return;
     }
-    if (file.size > 10 * 1024 * 1024 || !/\.(pdf|docx)$/i.test(file.name)) {
-      setError("เลือก PDF หรือ DOCX ขนาดไม่เกิน 10 MB");
+    if (file.size > 20 * 1024 * 1024 || !/\.(pdf|docx)$/i.test(file.name)) {
+      setError("เลือก PDF หรือ DOCX ขนาดไม่เกิน 20 MB");
       return;
     }
     setBusy(true);
@@ -108,7 +108,7 @@ export function UploadPage({ catalog }: { catalog: Catalog }) {
           }}
         >
           <p>
-            PDF ที่เลือกข้อความได้ หรือ DOCX · ครั้งละหนึ่งไฟล์ ไม่เกิน 10 MB
+            PDF ที่เลือกข้อความได้ หรือ DOCX · ครั้งละหนึ่งไฟล์ ไม่เกิน 20 MB
           </p>
           <p className="muted">
             PDF ไม่เกิน 100 หน้า · ยังไม่รองรับภาพสแกน/OCR ·

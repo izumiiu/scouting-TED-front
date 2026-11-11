@@ -16,9 +16,12 @@ export function EvidenceReferences({
             href={`#source-${ref}`}
             onClick={(e) => {
               e.preventDefault();
-              document
-                .getElementById(`source-${ref}`)
-                ?.scrollIntoView({ behavior: "smooth", block: "center" });
+              const target = document.getElementById(`source-${ref}`);
+              for (let parent = target?.parentElement; parent; parent = parent.parentElement) {
+                if (parent instanceof HTMLDetailsElement) parent.open = true;
+              }
+              target?.scrollIntoView({ behavior: "smooth", block: "center" });
+              target?.focus({ preventScroll: true });
             }}
           >
             {catalog.fields.find((f) => f.id === ref)?.label ??

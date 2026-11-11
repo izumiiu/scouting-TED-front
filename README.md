@@ -46,3 +46,11 @@ Vite proxy `/api` และ `/healthz` ไป backend; ไม่ต้องต�
 ยังไม่ได้ตั้งโดเมนหรือ deploy ระบบ TED ให้ในการพัฒนารอบนี้
 
 ตัวอ่านรุ่นใหม่แนะนำ DOCX เป็นหลัก เพราะเก็บตารางและหัวคอลัมน์ได้ตรงกว่า PDF แบบฟอร์มเปล่าจะขึ้น “ยังไม่ได้เรียก AI” ให้ใช้ไฟล์ที่กรอกแล้วหรือเติมข้อมูลเจ้าหน้าที่ เคสที่เคยวิเคราะห์ด้วยรุ่นก่อนต้องกดวิเคราะห์ใหม่ ไม่ต้องอัปโหลดซ้ำ
+
+## Detailed analysis follow-ups (ted-document-3)
+
+New analyses include a Thai topic, a specific question, and the scope-specific effect on assessment. Historical results remain readable without inventing missing explanations; analyze again to obtain the new details. No score, eligibility gate, or grant approval is added.
+
+Reading/selection coverage is distinct from missing project evidence. A topic not selected for AI or not extracted does not prove absence from the original document. Contribution verification remains separate from IDEA/POC classification.
+
+Run `npm test` for rendered UI checks with synthetic data (no API calls).

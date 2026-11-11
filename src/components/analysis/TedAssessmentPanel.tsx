@@ -67,14 +67,14 @@ export function TedAssessmentPanel({
         </section>
       )}
       {assessment.uncertainties.length > 0 && (
-        <div className="missing-info">
-          <h4>ข้อจำกัดและประเด็นที่ยังต้องตรวจสอบ</h4>
+        <details className="ted-uncertainties">
+          <summary>ข้อจำกัดและประเด็นที่ยังต้องตรวจสอบ ({assessment.uncertainties.length})</summary>
           <ul>
             {assessment.uncertainties.map((item, i) => (
               <li key={i}>{readableAnalysisText(item, catalog)}</li>
             ))}
           </ul>
-        </div>
+        </details>
       )}
       <p className="muted">
         {localCheck

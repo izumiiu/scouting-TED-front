@@ -37,11 +37,18 @@ export interface SourceUnit {
   topics?: Topic[];
   claimType?: "reported" | "forecast" | "selection_unverified";
 }
+export interface FollowUp {
+  scope: string;
+  question: string;
+  // Historical runs contain only scope and question.
+  topic?: string;
+  impact?: string;
+}
 export interface Result {
   summary: string;
   fields: { key: Topic; value: string | null; evidenceRefs: string[] }[];
   tedAssessment: TedAssessment;
-  missingInformation: { scope: string; question: string }[];
+  missingInformation: FollowUp[];
 }
 export interface IntakeRun {
   _id: string;

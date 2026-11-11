@@ -39,7 +39,7 @@ export function ExtractedFields({
     }
   }
   return (
-    <section className="card ted-card">
+    <section className="card ted-card" id="extracted-fields" tabIndex={-1}>
       <h2>ข้อมูลจากเอกสารและข้อมูลเพิ่มเติม</h2>
       <p>
         ตรวจเทียบต้นฉบับ แล้วเติมหรือแก้เฉพาะเรื่องที่จำเป็น
@@ -51,8 +51,9 @@ export function ExtractedFields({
           {topics.map((topic) => {
             const field = run.result?.fields.find((f) => f.key === topic);
             return (
-              <div key={topic}>
+              <div key={topic} className={field?.value ? "ted-field-present" : "ted-field-unreported"}>
                 <h3>{topicLabels[topic]}</h3>
+                <span className="ted-data-status">{field?.value ? "มีข้อมูลที่สกัดได้ · ยังต้องตรวจต้นฉบับ" : "ยังไม่พบในข้อความที่วิเคราะห์"}</span>
                 <p>{field?.value ?? "ยังไม่พบในข้อความที่วิเคราะห์"}</p>
                 {field && (
                   <EvidenceReferences

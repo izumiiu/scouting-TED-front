@@ -8,13 +8,7 @@ import { TedAssessmentPanel } from "../components/analysis/TedAssessmentPanel";
 import { SourcePanel } from "../components/analysis/SourcePanel";
 import { ExtractedFields } from "../components/analysis/ExtractedFields";
 import { ReviewPanel } from "../components/analysis/ReviewPanel";
-const scopeLabels: Record<string, string> = {
-  TED: "ข้อมูลร่วม TED IDEA / POC",
-  TED_IDEA: "TED IDEA",
-  TED_POC: "TED POC",
-  TED_POC_FUNDING: "เงินสมทบ TED POC",
-  DEVELOPMENT: "ระยะพัฒนาโครงการ",
-};
+import { FollowUpPanel } from "../components/analysis/FollowUpPanel";
 const actions: Record<string, string> = {
   uploaded: "รับเอกสาร",
   updated_and_queued: "แก้ข้อมูลและเริ่มวิเคราะห์ใหม่",
@@ -151,23 +145,25 @@ export function CaseDetailPage({
         </p>
       )}
       <section className="card ted-card">
-        <h2>ขอบเขตเอกสารและสิทธิ์</h2>
-        <p>{data.case.permissionReference}</p>
-        {data.case.documentInfo && (
-          <>
-            <p className="muted">
-              {data.case.documentInfo.pageCount
-                ? `${data.case.documentInfo.pageCount} หน้า · `
-                : ""}
-              {data.case.documentInfo.units} ส่วนข้อความ
-            </p>
-            {data.case.documentInfo.warnings.map((w, i) => (
-              <p className="notice info" key={i}>
-                {w}
+        <details>
+          <summary>ขอบเขตเอกสารและสิทธิ์ · ดูรายละเอียด</summary>
+          <p>{data.case.permissionReference}</p>
+          {data.case.documentInfo && (
+            <>
+              <p className="muted">
+                {data.case.documentInfo.pageCount
+                  ? `${data.case.documentInfo.pageCount} หน้า · `
+                  : ""}
+                {data.case.documentInfo.units} ส่วนข้อความ
               </p>
-            ))}
-          </>
-        )}
+              {data.case.documentInfo.warnings.map((w, i) => (
+                <p className="notice info" key={i}>
+                  {w}
+                </p>
+              ))}
+            </>
+          )}
+        </details>
         <label>
           รอบวิเคราะห์ (10 รอบล่าสุด)
           <select
@@ -201,7 +197,7 @@ export function CaseDetailPage({
             <p className="notice error">{run.error}</p>
           )}
           {run.result && (
-            <section className="card ted-card">
+            <section className="card ted-card ted-result-card">
               <h2>
                 {run.processingMode === "DOCUMENT_CHECK"
                   ? "ผลตรวจความพร้อมของเอกสาร · ยังไม่ได้เรียก AI"
@@ -213,31 +209,9 @@ export function CaseDetailPage({
                 localCheck={run.processingMode === "DOCUMENT_CHECK"}
                 catalog={sourceCatalog}
               />
-              <div className="missing-info">
-                <h3>ข้อมูลที่ควรถามหรือตรวจเพิ่มเติม</h3>
-                {Object.entries(scopeLabels).map(([scope, label]) => {
-                  const items = run.result!.missingInformation.filter(
-                    (m) => m.scope === scope,
-                  );
-                  return items.length ? (
-                    <div key={scope}>
-                      <h4>{label}</h4>
-                      <ul>
-                        {items.map((m, i) => (
-                          <li key={i}>{m.question}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null;
-                })}
-                {!run.result.missingInformation.length && (
-                  <p>
-                    AI ไม่ได้ระบุคำถามเพิ่มเติม เจ้าหน้าที่ยังต้องตรวจต้นฉบับ
-                  </p>
-                )}
-              </div>
             </section>
           )}
+          {run.result && <FollowUpPanel run={run} canEdit={!historical} />}
           {!historical && (
             <ExtractedFields
               key={`${data.case.revision}-${run._id}`}

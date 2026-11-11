@@ -68,23 +68,26 @@ export function SourcePanel({ run }: { run: IntakeRun }) {
         อ้างอิงแสดงข้อความที่ใช้ประกอบเหตุผล
         ข้อความจากผู้สมัครและช่องเลือกยังต้องตรวจหลักฐานจริง
       </p>
-      {run.sources.map((s) => (
-        <article className="ted-source" id={`source-${s.id}`} key={s.id}>
-          <strong>
-            {s.locator}
-            {s.kind === "officer" ? " · บันทึกเจ้าหน้าที่" : ""}
-          </strong>
-          {s.section && <p className="muted">{s.section}</p>}
-          {s.context && <p className="muted">{s.context}</p>}
-          {s.claimType === "forecast" && (
-            <small>ข้อมูลแผน/ประมาณการ ไม่ใช่ผลดำเนินงานจริง</small>
-          )}
-          {s.claimType === "selection_unverified" && (
-            <small>ค่าหรือช่องเลือกที่รายงาน ยังไม่ได้ตรวจยืนยัน</small>
-          )}
-          <p>{s.text}</p>
-        </article>
-      ))}
+      <details className="ted-source-list">
+        <summary>เปิดข้อความอ้างอิงที่ใช้วิเคราะห์ · {run.sources.length} ส่วน</summary>
+        {run.sources.map((s) => (
+          <article className="ted-source" id={`source-${s.id}`} key={s.id} tabIndex={-1}>
+            <strong>
+              {s.locator}
+              {s.kind === "officer" ? " · บันทึกเจ้าหน้าที่" : ""}
+            </strong>
+            {s.section && <p className="muted">{s.section}</p>}
+            {s.context && <p className="muted">{s.context}</p>}
+            {s.claimType === "forecast" && (
+              <small>ข้อมูลแผน/ประมาณการ ไม่ใช่ผลดำเนินงานจริง</small>
+            )}
+            {s.claimType === "selection_unverified" && (
+              <small>ค่าหรือช่องเลือกที่รายงาน ยังไม่ได้ตรวจยืนยัน</small>
+            )}
+            <p>{s.text}</p>
+          </article>
+        ))}
+      </details>
     </section>
   );
 }
